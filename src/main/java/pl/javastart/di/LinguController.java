@@ -1,10 +1,14 @@
 package pl.javastart.di;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
 
+@Controller
 class LinguController {
     private static final int UNDEFINED = -1;
     private static final int ADD_ENTRY = 0;

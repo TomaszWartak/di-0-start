@@ -1,12 +1,17 @@
 package pl.javastart.di;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.*;
 
+@Repository
 class EntryRepository {
     private List<Entry> entries;
 
+    @Autowired
     EntryRepository() {
         FileService fileService = new FileService();
         try {

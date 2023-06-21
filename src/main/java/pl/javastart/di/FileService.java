@@ -1,12 +1,16 @@
 package pl.javastart.di;
 
+import org.springframework.stereotype.Service;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Service
 class FileService {
     private static final String FILE_NAME = "data.csv";
 
@@ -14,7 +18,8 @@ class FileService {
         return Files.readAllLines(Paths.get(FILE_NAME))
             .stream()
             .map(CsvEntryConverter::parse)
-            .toList();
+            .collect(Collectors.toList());
+            // todo to daje niemodyfikowalną listę...: .toList();
     }
 
     void saveEntries(List<Entry> entries) throws IOException {
