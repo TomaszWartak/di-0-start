@@ -10,10 +10,10 @@ import java.util.*;
 @Repository
 class EntryRepository {
     private List<Entry> entries;
+    FileService fileService;
 
     @Autowired
-    EntryRepository() {
-        FileService fileService = new FileService();
+    EntryRepository( FileService fileService ) {
         try {
             this.entries = fileService.readAllFile();
         } catch (IOException e) {

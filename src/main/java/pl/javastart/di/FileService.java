@@ -1,5 +1,7 @@
 package pl.javastart.di;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
@@ -11,19 +13,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@PropertySource("classpath:properties.properties")
 class FileService {
-    private static final String FILE_NAME = "data.csv";
+
+    @Value("${app.data-config.data-filename}")
+    private String fileName;
 
     List<Entry> readAllFile() throws IOException {
-        return Files.readAllLines(Paths.get(FILE_NAME))
+        return Files.readAllLines(Paths.get(fileName))
             .stream()
             .map(CsvEntryConverter::parse)
             .collect(Collectors.toList());
-            // todo to daje niemodyfikowalną listę...: .toList();
     }
 
     void saveEntries(List<Entry> entries) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Entry entry : entries) {
                 writer.write(entry.toString());
                 writer.newLine();
